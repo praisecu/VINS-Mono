@@ -16,10 +16,10 @@ distortion_parameters:
    p1: 0.002928
    p2: -0.000889
 projection_parameters:
-   fx: 653.164001
-   fy: 651.409912
-   cx: 323.511367
-   cy: 181.928599
+   fx: 640.240031
+   fy: 639.683968 
+   cx: 324.423203
+   cy: 181.687419
 
 # Extrinsic parameter between IMU and Camera.
 estimate_extrinsic: 0   # 0  Have an accurate extrinsic parameters. We will trust the following imu^R_cam, imu^T_cam, don't change it.
@@ -31,15 +31,15 @@ extrinsicRotation: !!opencv-matrix
    rows: 3
    cols: 3
    dt: d
-   data: [0.01030021360284869, 0.046421201101130516, 0.9988688490928455,
-           -0.9992034133217642, -0.03803709156035995, 0.012071390630998158, 
-           0.03855443432178768, -0.9981975013763351, 0.04599243242284273]
+   data: [0.02519662, 0.05881038, 0.99795114,
+           -0.99908211, -0.03311146, 0.02717647, 
+           0.03464188, -0.99771989, 0.0579221]
 #Translation from camera frame to imu frame, imu^T_cam
 extrinsicTranslation: !!opencv-matrix
    rows: 3
    cols: 1
    dt: d
-   data: [0.05928451743554004, -0.0031549426472175656, 0.0018572327424064674]
+   data: [0.0532936, 0.00011848, -0.00051549]
 
 #feature traker paprameters
 max_cnt: 150            # max feature number in feature tracking
@@ -55,12 +55,12 @@ max_solver_time: 0.04  # max solver itration time (ms), to guarantee real time
 max_num_iterations: 8   # max solver itrations, to guarantee real time
 keyframe_parallax: 10.0 # keyframe selection threshold (pixel)
 
-#imu parameters       The more accurate parameters you provide, the better performance
-acc_n: 0.08          # accelerometer measurement noise standard deviation. #0.2   0.04
-gyr_n: 0.004         # gyroscope measurement noise standard deviation.     #0.05  0.004
-acc_w: 0.00004         # accelerometer bias random work noise standard deviation.  #0.02
-gyr_w: 2.0e-6       # gyroscope bias random work noise standard deviation.     #4.0e-5
-g_norm: 9.81007     # gravity magnitude
+# IMU parameters from Kalibr results
+acc_n: 0.0554        # accelerometer measurement noise std [m/s²]
+gyr_n: 0.001234      # gyroscope measurement noise std [rad/s]
+acc_w: 0.000981      # accelerometer bias random walk [m/s²/√s]
+gyr_w: 0.000349      # gyroscope bias random walk [rad/s/√s]
+g_norm: 9.80665      # gravity magnitude
 
 #loop closure parameters
 loop_closure: 1                    # start loop closure
@@ -70,7 +70,7 @@ pose_graph_save_path: "/home/agilicious/output/pose_graph/" # save and load path
 
 #unsynchronization parameters
 estimate_td: 0                      # online estimate time offset between camera and imu
-td: 0.0                             # initial value of time offset. unit: s. readed image clock + td = real image clock (IMU clock)
+td: -0.15158205202320035            # initial value of time offset. unit: s. readed image clock + td = real image clock (IMU clock)
 
 #rolling shutter parameters
 rolling_shutter: 0                  # 0: global shutter camera, 1: rolling shutter camera
