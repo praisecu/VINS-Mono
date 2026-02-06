@@ -1,23 +1,23 @@
 %YAML:1.0
 #common parameters
 imu_topic: "/imu0"
-image_topic: "/oak/rgb/image_rect"
+image_topic: "/oak/left/image_rect"
 output_path: "/home/agilicious/output/"
 #camera calibration 
 model_type: PINHOLE
-camera_name: oak_rgb
-image_width: 1280
-image_height: 720
+camera_name: oak_left
+image_width: 640
+image_height: 480
 distortion_parameters:
    k1: 0.0
    k2: 0.0
    p1: 0.0
    p2: 0.0
 projection_parameters:
-   fx: 1006.8809814453125
-   fy: 1006.8809814453125
-   cx: 633.23193359375
-   cy: 357.72344970703125
+   fx: 457.5813903808594
+   fy: 457.5813903808594
+   cx: 320.8541564941406
+   cy: 215.27906799316406
 # Extrinsic parameter between IMU and Camera.
 estimate_extrinsic: 0   # 0  Have an accurate extrinsic parameters. We will trust the following imu^R_cam, imu^T_cam, don't change it.
                         # 1  Have an initial guess about extrinsic parameters. We will optimize around your initial guess.
@@ -28,15 +28,15 @@ extrinsicRotation: !!opencv-matrix
    rows: 3
    cols: 3
    dt: d
-   data: [-0.00815703, -0.01233109,  0.9998907,
-          -0.99991894, -0.00967496, -0.00827657,
-           0.00977596, -0.99987716, -0.01225117]
+   data: [-0.00038488, -0.00073038,  0.99999966,
+          -0.99995776, -0.0091834,  -0.00039157,
+           0.00918368, -0.99995756, -0.00072681]
 #Translation from camera frame to imu frame, imu^T_cam
 extrinsicTranslation: !!opencv-matrix
    rows: 3
    cols: 1
    dt: d
-   data: [0.01248108, -0.02867736, 0.00656747]
+   data: [0.00829586, 0.00138143, 0.00827266]
 #feature traker paprameters
 max_cnt: 150            # max feature number in feature tracking
 min_dist: 30            # min distance between two features 
@@ -61,11 +61,11 @@ load_previous_pose_graph: 0        # load and reuse previous pose graph; load fr
 fast_relocalization: 0             # useful in real-time and large project
 pose_graph_save_path: "/home/agilicious/output/pose_graph/" # save and load path
 #unsynchronization parameters
-estimate_td: 1                      # online estimate time offset between camera and imu
-td: 0.003480418701590285            # initial value of time offset. unit: s. readed image clock + td = real image clock (IMU clock)
+estimate_td: 0                      # online estimate time offset between camera and imu
+td: -0.002133965828410012           # initial value of time offset. unit: s. readed image clock + td = real image clock (IMU clock)
 #rolling shutter parameters
-rolling_shutter: 1                  # 0: global shutter camera, 1: rolling shutter camera
-rolling_shutter_tr: 0.0075          # unit: s. rolling shutter read out time per frame (from data sheet). 
+rolling_shutter: 0                  # 0: global shutter camera, 1: rolling shutter camera
+rolling_shutter_tr: 0               # unit: s. rolling shutter read out time per frame (from data sheet). 
 #visualization parameters
 save_image: 1                   # save image in pose graph for visualization prupose; you can close this function by setting 0 
 visualize_imu_forward: 0        # output imu forward propogation to achieve low latency and high frequence results
